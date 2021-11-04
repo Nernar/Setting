@@ -15,12 +15,6 @@ tryout(function() {
 	}
 });
 
-const formatSize = function(size) {
-	return size < 100 ? Number(size).toFixed(2) :
-		size < 1000 ? Number(size).toFixed(1) :
-		size < 1024 ? Number(size).toFixed() : "?";
-};
-
 const Files = new Object();
 
 Files.createFile = function(path, name) {
@@ -70,19 +64,6 @@ Files.getExtension = function(file) {
 		return null;
 	}
 	return name.substring(index + 1);
-};
-
-Files.prepareSize = function(file) {
-	let size = file.length();
-	return this.prepareFormattedSize(size);
-};
-
-Files.prepareFormattedSize = function(size) {
-	return size <= 0 ? translate("Empty") : size < 1024 ? translate("%s bytes", size) :
-		size < 1024 * 1024 ? translate("%s KB", formatSize(size / 1024)) :
-		size < 1024 * 1024 * 1024 ? translate("%s MB", formatSize(size / (1024 * 1024))) :
-		size < 1024 * 1024 * 1024 * 1024 ? translate("%s GB", formatSize(size / (1024 * 1024 * 1024))) :
-		translate("%s TB", formatSize(size / (1024 * 1024 * 1024 * 1024)));
 };
 
 Files.listFiles = function(path, explore) {

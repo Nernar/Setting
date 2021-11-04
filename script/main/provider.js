@@ -4,7 +4,7 @@ const createButton = function() {
 	CurrentButtonLayout.setAlpha(alpha);
 
 	button0 = getStyledButton("menu");
-	button0.setText(translate("Меню"));
+	button0.setText(translate("Menu").toUpperCase());
 	button0.setTextSize(20);
 	button0.setOnClickListener(function(viewarg) {
 		createMenu(0);
@@ -13,22 +13,22 @@ const createButton = function() {
 	button0.setOnLongClickListener(function(viewarg) {
 		let edit = new android.widget.EditText(getContext());
 		lastCode && edit.setText(lastCode);
-		edit.setHint(translate("// ваш код"));
+		edit.setHint(translate("// your code"));
 		edit.setTextColor(Interface.Color.BLACK);
 		edit.setHintTextColor(Interface.Color.DKGRAY);
 		edit.setBackgroundDrawable(null);
 
 		let builder = new android.app.AlertDialog.Builder(getContext());
-		builder.setTitle(translate("Введите необходимый код"));
-		builder.setPositiveButton(translate("Запуск"), function() {
+		builder.setTitle(translate("Enter required code"));
+		builder.setPositiveButton(translate("Launch"), function() {
 			try {
 				lastCode = edit.getText().toString();
-				eval("" + lastCode);
+				eval(String(lastCode));
 			} catch (e) {
 				showHint(e.message);
 			}
 		});
-		builder.setNegativeButton(translate("Отмена"), null);
+		builder.setNegativeButton(translate("Cancel"), null);
 		builder.setView(edit);
 
 		builder.create().show();
@@ -51,7 +51,7 @@ const createButton = function() {
 	}
 
 	CurrentButtonWindow = new android.widget.PopupWindow(CurrentButtonLayout, Interface.Display.WRAP, Interface.Display.WRAP);
-	CurrentButtonWindow.showAtLocation(getContext().getWindow().getDecorView(), android.view.Gravity.RIGHT | android.view.Gravity.TOP, 0, 0);
+	CurrentButtonWindow.showAtLocation(Interface.getDecorView(), android.view.Gravity.RIGHT | android.view.Gravity.TOP, 0, 0);
 };
 
 const createStop = function() {
@@ -60,7 +60,7 @@ const createStop = function() {
 	CurrentStopLayout.setAlpha(alpha);
 
 	button24 = getStyledButton("menu");
-	button24.setText(translate("Отмена"));
+	button24.setText(translate("Interrupt").toUpperCase());
 	button24.setTextSize(20);
 	button24.setOnClickListener(function(viewarg) {
 		sovleGoFunctions = false;
@@ -84,7 +84,7 @@ const createStop = function() {
 	updateStop();
 
 	CurrentStopWindow = new android.widget.PopupWindow(CurrentStopLayout, Interface.getX(360), Interface.Display.WRAP);
-	CurrentStopWindow.showAtLocation(getContext().getWindow().getDecorView(), android.view.Gravity.RIGHT | android.view.Gravity.TOP, 0, 0);
+	CurrentStopWindow.showAtLocation(Interface.getDecorView(), android.view.Gravity.RIGHT | android.view.Gravity.TOP, 0, 0);
 };
 
 const updateStop = function() {
@@ -95,63 +95,69 @@ const updateStop = function() {
 const updateButton = function() {
 	let position = Player.getPosition(),
 		angle = Entity.getLookAngle(Player.get());
-	for (let i in angle)
-		if (typeof angle[i] == "number") angle[i] = Math.round(angle[i] * 100) / 100;
-	for (let i in position)
-		if (typeof position[i] == "number") position[i] = Math.round(position[i] * 10) / 10;
+	for (let i in angle) {
+		if (typeof angle[i] == "number") {
+			angle[i] = Math.round(angle[i] * 100) / 100;
+		}
+	}
+	for (let i in position) {
+		if (typeof position[i] == "number") {
+			position[i] = Math.round(position[i] * 10) / 10;
+		}
+	}
 	text17.setText("x: " + position.x + ", y: " + position.y + ", z: " + position.z);
 	text18.setText("yaw: " + angle.yaw + ", pitch: " + angle.pitch);
 };
 
 const showDialog = function() {
-	let dialog = new android.app.AlertDialog.Builder(getContext(), 16974122);
-	dialog.setTitle(translate("Setting"));
-	dialog.setMessage(android.text.Html.fromHtml("Мод позволяет полномастштабно управлять миром, " +
-		"строить, заливать, заменять, копировать блоки и многое другое. Строительство " +
-		"происходит в фоне, вы можете создавать свои шедевры прямо во время процесса. " +
-		"Используйте мод для любых целей, ведь главное - ваша фантазия!" +
-		"<br/><br/>Участники проекта:" +
-		"<br/><a href=\"vk.com/id268478382\">Макс Кораблев</a> - главный разработчик" +
-		"<br/><a href=\"vk.com/id305567723\">Дмитрий Медведев</a> - автор идеи + основа" +
-		"<br/><br/>Важные ссылки:" +
-		"<br/><a href=\"vk.com/club148880110\">Группа</a> - новости, помощь и документация"));
-	dialog.setPositiveButton(translate("Выход"), null);
+	let dialog = new android.app.AlertDialog.Builder(getContext(), android.R.style.Theme_DeviceDefault_DialogWhenLarge);
+	dialog.setTitle(translate("setting"));
+	dialog.setMessage(android.text.Html.fromHtml(translate("Modification allows you to fully manage world, " +
+		"build, fill, replace, copy blocks and much more. Construction " +
+		"takes place in background, you can create your masterpieces right during process. " +
+		"Use modification for any purpose, because main thing is your imagination!" +
+		"<br/><br/>Project participants:" +
+		"<br/><a href=\"vk.com/id268478382\">Max Korablev</a> - chief developer" +
+		"<br/><a href=\"vk.com/id305567723\">Dmitry Medvedev</a> - implementation author" +
+		"<br/><br/>Important links:" +
+		"<br/><a href=\"vk.com/club148880110\">Group</a> - news, help and documentation")));
+	dialog.setPositiveButton(translate("Leave"), null);
 	dialog.create().show();
 };
 
 const saveDialog = function(type) {
 	let file = getNextProject();
-	let dialog = new android.app.AlertDialog.Builder(getContext(), 16974122);
-	dialog.setTitle(translate("Сохранение"));
-	dialog.setMessage(translate("Файл будет сохранен как %s, продолжить?", Files.getNameWithoutExtension(file.getName())));
-	dialog.setPositiveButton(translate("ОК"), function() {
+	let dialog = new android.app.AlertDialog.Builder(getContext(), android.R.style.Theme_DeviceDefault_DialogWhenLarge);
+	dialog.setTitle(translate("Exporting"));
+	dialog.setMessage(translate("File will be saved as %s, continue?", Files.getNameWithoutExtension(file.getName())));
+	dialog.setPositiveButton(translate("OK"), function() {
 		try {
 			saveAsProject(file);
 			if (menuCanUpdate) updateMenu(type);
-			showHint(translate("Сохранено"));
+			showHint(translate("Exported"));
 		} catch (e) {
-			showHint(translate("Временно не доступно"));
+			showHint(translate("Temporarily unavailable"));
 		}
 	});
-	dialog.setNegativeButton(translate("Выход"), null);
+	dialog.setNegativeButton(translate("Leave"), null);
 	dialog.create().show();
 };
 
 const loadDialog = function(type) {
 	let list = getProjects();
-	let dialog = new android.app.AlertDialog.Builder(getContext(), 16974122);
-	dialog.setTitle(translate("Загрузка"));
+	let dialog = new android.app.AlertDialog.Builder(getContext(), android.R.style.Theme_DeviceDefault_DialogWhenLarge);
+	dialog.setTitle(translate("Importing"));
 	dialog.setItems(list.items, function(d, i) {
 		try {
 			loadFromProject(list.files[i]);
 			setsovle = [true, true];
 			if (menuCanUpdate) updateMenu(type);
-			showHint(translate("Загружено"));
+			showHint(translate("Imported"));
 		} catch (e) {
-			showHint(translate("Файл поврежден"));
+			showHint(translate("Temporarily unavailable"));
 		}
 	});
-	dialog.setNegativeButton(translate("Выход"), null);
+	dialog.setNegativeButton(translate("Leave"), null);
 	dialog.create().show();
 };
 

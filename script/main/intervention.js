@@ -149,7 +149,7 @@ Callback.addCallback("tick", function() {
 			if (this.tick > 0) {
 				tick--;
 			} else {
-				Game.tipMessage("§ax=" + xkol + ", y=" + ykol + ", z=" + zkol);
+				Game.tipMessage("x: " + xkol + ", y: " + ykol + ", z: " + zkol);
 				tick = 5;
 			}
 		}
@@ -178,7 +178,7 @@ Callback.addCallback("LevelLeft", function() {
 });
 
 Callback.addCallback("NativeCommand", function(cmd) {
-	if (cmd == "/start") {
+	if (cmd == "/start" && !rover) {
 		handle(function() {
 			createButton();
 			rover = true;

@@ -22,7 +22,7 @@ const functions = function() {
 				if (koll_current >= koll_total) {
 					acquire(function() {
 						stop();
-						showHint(translate("Заполнено %s блоков", koll_current));
+						showHint(translate("%s blocks filled", koll_current));
 					});
 				}
 			}
@@ -35,7 +35,7 @@ const functions = function() {
 				if (koll_current >= koll_total) {
 					acquire(function() {
 						stop();
-						showHint(translate("Скопировано %s блоков", koll_total));
+						showHint(translate("%s blocks copied", koll_total));
 						setsovle = [true, true];
 					});
 				}
@@ -53,7 +53,7 @@ const functions = function() {
 				if (koll_current >= koll_total) {
 					acquire(function() {
 						stop()
-						showHint(translate("Вставлено %s блоков", koll_total));
+						showHint(translate("%s blocks inserted", koll_total));
 						setsovle[1] = false;
 					});
 				}
@@ -68,7 +68,7 @@ const functions = function() {
 				if (koll_current >= koll_total) {
 					acquire(function() {
 						stop();
-						showHint(translate("Сканировано %s блоков, из них залито: %s", [koll_total, koll_set]));
+						showHint(translate("%s blocks scanned, of which filled: %s", [koll_total, koll_set]));
 					});
 				}
 			}
@@ -82,7 +82,7 @@ const functions = function() {
 				if (koll_current >= koll_total) {
 					acquire(function() {
 						stop();
-						showHint(translate("Сканировано %s блоков, из них заменено: %s", [koll_total, koll_set]));
+						showHint(translate("%s blocks scanned, of which replaced: %s", [koll_total, koll_set]));
 					});
 				}
 			}
@@ -96,7 +96,7 @@ const functions = function() {
 				if (koll_current >= koll_total) {
 					acquire(function() {
 						stop();
-						showHint(translate("Вырезано %s блоков", koll_total));
+						showHint(translate("%s blocks cut out", koll_total));
 						setsovle = [true, true];
 					});
 				}
@@ -222,8 +222,7 @@ Callback.addCallback("ItemUse", function(coords, item, block) {
 			id = block.id;
 			data = block.data;
 			replace = true;
-			if (menuCanUpdate) updateMenu(type);
-			showHint(translate("Блок для замены выбран"));
+			showHint(translate("Replacement block is selected"));
 		});
 	}
 });

@@ -14,6 +14,7 @@ pids
 *.pid
 *.seed
 *.pid.lock
+/projects/
 
 # Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
@@ -50,6 +51,6 @@ _gsdata_/
 # Environment files
 /script/main.js
 
-# {NAME} sources
+# Setting sources
 /script/.sources/
 .placeholder.ico
