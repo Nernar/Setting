@@ -20,18 +20,6 @@ Translation.addTranslation("Modification allows you to fully manage world, " +
 		"<br/><br/>Важные ссылки:" +
 		"<br/><a href=\"vk.com/club148880110\">Группа</a> - новости, помощь и документация"
 });
-Translation.addTranslation("// your code", {
-	ru: "// ваш код"
-});
-Translation.addTranslation("Enter required code", {
-	ru: "Введите необходимый код"
-});
-Translation.addTranslation("Launch", {
-	ru: "Запуск"
-});
-Translation.addTranslation("Cancel", {
-	ru: "Отмена"
-});
 Translation.addTranslation("Interrupt", {
 	ru: "Прервать"
 });
@@ -146,9 +134,6 @@ Translation.addTranslation("Management", {
 	ru: "Управление"
 });
 Translation.addTranslation("Restore", {
-	ru: "Восстановить"
-});
-Translation.addTranslation("Wipe", {
 	ru: "Сбросить"
 });
 Translation.addTranslation("Config", {

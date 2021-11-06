@@ -5,110 +5,53 @@ const createButton = function() {
 
 	button0 = getStyledButton("menu");
 	button0.setText(translate("Menu"));
-	button0.setAllCaps(true);
 	button0.setTextSize(20);
 	button0.setOnClickListener(function(viewarg) {
 		createMenu(0);
 		removeButton();
 	});
-	button0.setOnLongClickListener(function(viewarg) {
-		let edit = new android.widget.EditText(getContext());
-		lastCode && edit.setText(lastCode);
-		edit.setHint(translate("// your code"));
-		edit.setTextColor(Interface.Color.BLACK);
-		edit.setHintTextColor(Interface.Color.DKGRAY);
-		edit.setBackgroundDrawable(null);
-
-		let builder = new android.app.AlertDialog.Builder(getContext());
-		builder.setTitle(translate("Enter required code"));
-		builder.setPositiveButton(translate("Launch"), function() {
-			try {
-				lastCode = edit.getText().toString();
-				eval(String(lastCode));
-			} catch (e) {
-				showHint(e.message);
-			}
-		});
-		builder.setNegativeButton(translate("Cancel"), null);
-		builder.setView(edit);
-
-		builder.create().show();
-		return true;
-	});
 	CurrentButtonLayout.addView(button0);
 
-	if (locationInfo) {
-		text17 = getStyledText();
-		text17.setGravity(Interface.Gravity.CENTER);
-		text17.setPadding(5, 5, 5, 0);
-		text17.setTextSize, (14);
-		CurrentButtonLayout.addView(text17);
+	button24 = getStyledButton("menu");
+	button24.setTextSize(20);
+	button24.setOnClickListener(function(viewarg) {
+		sovleGoFunctions = false;
+		removeButton();
+		createMenu(0);
+	});
+	CurrentButtonLayout.addView(button24);
 
-		text18 = getStyledText();
-		text18.setGravity(Interface.Gravity.CENTER);
-		text18.setPadding(5, 0, 5, 5);
-		text18.setTextSize(14);
-		CurrentButtonLayout.addView(text18);
-	}
+	progress0 = getStyledProgress();
+	progress0.setMax(1000);
+	CurrentButtonLayout.addView(progress0);
+
+	text15 = getStyledText();
+	text15.setGravity(Interface.Gravity.CENTER);
+	text15.setPadding(5, 5, 5, 5);
+	text15.setTextSize, (14);
+	CurrentButtonLayout.addView(text15);
+
+	if (menuCanUpdate) updateButton();
 
 	CurrentButtonWindow = new android.widget.PopupWindow(CurrentButtonLayout, Interface.Display.WRAP, Interface.Display.WRAP);
 	CurrentButtonWindow.showAtLocation(Interface.getDecorView(), android.view.Gravity.RIGHT | android.view.Gravity.TOP, 0, 0);
 };
 
-const createStop = function() {
-	CurrentStopLayout = getStyledLayout("menu");
-	CurrentStopLayout.setOrientation(Interface.Orientate.VERTICAL);
-	CurrentStopLayout.setAlpha(alpha);
-
-	button24 = getStyledButton("menu");
-	button24.setText(translate("Interrupt"));
-	button24.setAllCaps(true);
-	button24.setTextSize(20);
-	button24.setOnClickListener(function(viewarg) {
-		sovleGoFunctions = false;
-		removeStop();
-		createMenu(0);
-	});
-	CurrentStopLayout.addView(button24);
-
-	text15 = getStyledText();
-	text15.setGravity(Interface.Gravity.CENTER);
-	text15.setPadding(5, 5, 5, 0);
-	text15.setTextSize, (14);
-	CurrentStopLayout.addView(text15);
-
-	text16 = getStyledText();
-	text16.setGravity(Interface.Gravity.CENTER);
-	text16.setPadding(5, 0, 5, 5);
-	text16.setTextSize(14);
-	CurrentStopLayout.addView(text16);
-
-	updateStop();
-
-	CurrentStopWindow = new android.widget.PopupWindow(CurrentStopLayout, Interface.getX(360), Interface.Display.WRAP);
-	CurrentStopWindow.showAtLocation(Interface.getDecorView(), android.view.Gravity.RIGHT | android.view.Gravity.TOP, 0, 0);
-};
-
-const updateStop = function() {
-	text15.setText(formatInt(koll_current) + "/" + formatInt(koll_total));
-	text16.setText(Math.floor(koll_current / koll_total * 1000) / 10 + "%");
-};
-
 const updateButton = function() {
-	let position = Player.getPosition(),
-		angle = Entity.getLookAngle(Player.get());
-	for (let i in angle) {
-		if (typeof angle[i] == "number") {
-			angle[i] = Math.round(angle[i] * 100) / 100;
-		}
+	if (functionNumber == 0) {
+		button0.setVisibility(Interface.Visibility.VISIBLE);
+		button24.setVisibility(Interface.Visibility.GONE);
+		text15.setVisibility(Interface.Visibility.GONE);
+		progress0.setVisibility(Interface.Visibility.GONE);
+	} else {
+		button0.setVisibility(Interface.Visibility.GONE);
+		button24.setVisibility(Interface.Visibility.VISIBLE);
+		text15.setVisibility(Interface.Visibility.VISIBLE);
+		progress0.setVisibility(Interface.Visibility.VISIBLE);
+		text15.setText(formatInt(koll_current) + "/" + formatInt(koll_total));
+		progress0.setProgress(Math.floor(koll_current / koll_total * 1000));
+		button24.setText(sovleGoFunctions ? translate("Interrupt") : translate("Operation"));
 	}
-	for (let i in position) {
-		if (typeof position[i] == "number") {
-			position[i] = Math.round(position[i] * 10) / 10;
-		}
-	}
-	text17.setText("x: " + position.x + ", y: " + position.y + ", z: " + position.z);
-	text18.setText("yaw: " + angle.yaw + ", pitch: " + angle.pitch);
 };
 
 const showDialog = function() {
@@ -125,9 +68,9 @@ const showDialog = function() {
 		"<br/><a href=\"vk.com/club148880110\">Group</a> - news, help and documentation")));
 	dialog.setPositiveButton(translate("Leave"), null);
 	let movement = dialog.create();
+	movement.show();
 	movement.findViewById(android.R.id.message).setMovementMethod
 		(android.text.method.LinkMovementMethod.getInstance());
-	movement.show();
 };
 
 const saveDialog = function(type) {
@@ -172,12 +115,5 @@ const removeButton = function() {
 	if (this.CurrentButtonWindow) {
 		CurrentButtonWindow.dismiss();
 		CurrentButtonWindow = null;
-	}
-};
-
-const removeStop = function() {
-	if (this.CurrentStopWindow) {
-		CurrentStopWindow.dismiss();
-		CurrentStopWindow = null;
 	}
 };

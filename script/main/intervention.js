@@ -3,11 +3,10 @@ let menuWidth = 0.26,
 
 let menuCanUpdate = true,
 	coordsButtonShow = false,
-	locationInfo = true,
 	parseAir = true;
 
 const loadFromProject = function(file) {
-	eval("let parsed = " + Files.read(file));
+	eval("parsed = " + Files.read(file));
 	koll_total = parsed.sizes[0];
 	xkol = parsed.sizes[1];
 	ykol = parsed.sizes[2];
@@ -22,7 +21,6 @@ const saveAsProject = function(file) {
 		sizes: [koll_total, xkol, ykol, zkol],
 		blocks: blocks
 	});
-
 	Files.write(file, obj);
 };
 
@@ -31,7 +29,6 @@ const getProjects = function() {
 		list = file.listFiles(),
 		files = new Array(),
 		projects = new Array();
-
 	for (let i = 0; i < list.length; i++) {
 		let name = list[i].getName();
 		if (name.endsWith(".setp")) {
@@ -39,7 +36,6 @@ const getProjects = function() {
 			projects.push(name.replace(".setp", ""));
 		}
 	}
-
 	return {
 		items: projects,
 		files: files
@@ -54,7 +50,7 @@ const getNextProject = function() {
 };
 
 const updateSettings = function() {
-	gran = 20;
+	gran = 10;
 	alpha = 1;
 	build = 0;
 };
@@ -78,29 +74,19 @@ const start = function() {
 	dataLocal = carried.data;
 	koll_current = 0;
 	tick = 0;
-
-	xxa = 0;
-	yya = 0;
-	zza = 0;
-
+	xxa = yya = zza = 0;
 	removeMenu();
-	removeSetting();
-	createStop();
+	createButton();
 };
 
-const stop = function(not_show) {
+const stop = function() {
 	if (pos1[3] != null && pos2[3] != null) {
 		pos1[3] = rule;
 		pos2[3] = false;
 	}
-
 	if (functionNumber !== 5) replace = false;
 	functionNumber = 0;
-	removeStop();
-
-	if (!not_show) {
-		createButton();
-	}
+	if (menuCanUpdate) updateButton();
 };
 
 Callback.addCallback("tick", function() {
@@ -144,14 +130,10 @@ Callback.addCallback("tick", function() {
 			}
 		}
 
-		if (functionNumber != 0) {
+		if (functionNumber > 0) {
 			if (sovleGoFunctions) {
 				functions();
 			}
-			handle(function() {
-				updateStop();
-			});
-		} else if (locationInfo) {
 			handle(function() {
 				updateButton();
 			});
@@ -163,8 +145,6 @@ Callback.addCallback("LevelLeft", function() {
 	handle(function() {
 		removeButton();
 		removeMenu();
-		removeStop();
-		removeSetting();
 		leaved = true;
 	});
 });

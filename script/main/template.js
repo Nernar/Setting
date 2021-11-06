@@ -40,6 +40,7 @@ const getStyledButton = function(style) {
 			compound.addState([], new android.graphics.drawable.ColorDrawable
 				(Interface.Color.parse("#AA444444")));
 			view.setPadding(30, 0, 30, 0);
+			view.setAllCaps(true);
 			view.setTextSize(12);
 			break;
 		case "transparent":
@@ -130,6 +131,15 @@ const getStyledSeek = function(style) {
 			view.setThumb(null);
 			break;
 	}
+	return view;
+};
+
+const getStyledProgress = function() {
+	let view = new android.widget.ProgressBar(getContext(), null,
+		android.R.attr.progressBarStyleHorizontal);
+	view.setLayoutParams(new android.widget.RelativeLayout.LayoutParams
+		(Interface.Display.MATCH, Interface.Display.WRAP));
+	setCompoundProgressDrawable(view.getProgressDrawable());
 	return view;
 };
 

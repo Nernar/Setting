@@ -8,16 +8,16 @@ const createMenu = function(type) {
 	CurrentMenuLayout.addView(layout);
 
 	title = getStyledText("title");
-	let params = android.widget.RelativeLayout.LayoutParams(Interface.Display.WIDTH * menuWidth - Interface.Display.WIDTH / 14, Interface.Display.MATCH);
 	title.setGravity(Interface.Gravity.CENTER);
-	title.setLayoutParams(params);
+	title.setLayoutParams(new android.widget.RelativeLayout.LayoutParams
+		(Interface.Display.WIDTH * menuWidth - Interface.Display.WIDTH / 14, Interface.Display.MATCH));
 	title.setText(translate("setting"));
 	layout.addView(title);
 
 	button23 = getStyledButton("transparent");
-	params = android.widget.RelativeLayout.LayoutParams(Interface.Display.WIDTH / 13, Interface.Display.WIDTH / 13);
-	button23.setLayoutParams(params);
-	button23.setText(type != 0 ? "<" : "x");
+	button23.setLayoutParams(new android.widget.RelativeLayout.LayoutParams
+		(Interface.Display.WIDTH / 13, Interface.Display.WIDTH / 13));
+	button23.setText(translate("|"));
 	button23.setTextSize(30);
 	button23.setOnClickListener(function(viewarg) {
 		if (type == 0) {
@@ -196,25 +196,12 @@ const createMenu = function(type) {
 			button4 = getStyledButton("menu");
 			button4.setText(translate("Restore"));
 			button4.setOnClickListener(function(viewarg) {
-				if (setsovle[0] == false) {
-					pos1[3] = true;
-					pos2[3] = true;
-				} else {
-					setsovle[1] = true;
-				}
-				if (menuCanUpdate) updateMenu(type);
-			});
-			layout.addView(button4);
-
-			button12 = getStyledButton("menu");
-			button12.setText(translate("Wipe"));
-			button12.setOnClickListener(function(viewarg) {
-				removeMenu();
 				rule = false;
 				stop();
 				setsovle[1] = false;
+				if (menuCanUpdate) updateMenu(type);
 			});
-			layout.addView(button12);
+			layout.addView(button4);
 
 			button16 = getStyledButton("menu");
 			button16.setText(translate("Config"));
@@ -240,7 +227,7 @@ const createMenu = function(type) {
 			button14.setText(translate("Continue"));
 			button14.setOnClickListener(function(viewarg) {
 				removeMenu();
-				createStop();
+				createButton();
 				sovleGoFunctions = true;
 			});
 			layout.addView(button14);
@@ -250,6 +237,7 @@ const createMenu = function(type) {
 			button15.setOnClickListener(function(viewarg) {
 				sovleGoFunctions = true;
 				removeMenu();
+				createButton();
 				stop();
 			});
 			layout.addView(button15);
@@ -419,14 +407,6 @@ const createMenu = function(type) {
 		});
 		layout6.addView(check2);
 
-		check3 = getStyledCheck("setting");
-		check3.setText(translate("Display location"));
-		check3.setChecked(locationInfo);
-		check3.setOnCheckedChangeListener(function(group, bool) {
-			locationInfo = bool;
-		});
-		layout6.addView(check3);
-
 		text9 = getStyledText("group");
 		text9.setText(translate("Community"));
 		layout.addView(text9);
@@ -452,18 +432,11 @@ const createMenu = function(type) {
 const updateMenu = function(type) {
 	if (this.CurrentMenuLayout) {
 		if (type == 0) {
-			if (pos1[3] == false && pos2[3] == false && !setsovle[1]) {
-				button4.setVisibility(Interface.Visibility.VISIBLE);
-			} else {
-				button4.setVisibility(Interface.Visibility.GONE);
-			}
-
-			if (pos1[3] == true && pos2[3] == false && !setsovle[1]) {
+			if (pos1[3] && !pos2[3] && !setsovle[1]) {
 				button2.setVisibility(Interface.Visibility.VISIBLE);
 			} else {
 				button2.setVisibility(Interface.Visibility.GONE);
 			}
-
 			if (pos1[3] && pos2[3] && !setsovle[1]) {
 				text2.setVisibility(Interface.Visibility.VISIBLE);
 				button3.setVisibility(Interface.Visibility.VISIBLE);
@@ -480,21 +453,17 @@ const updateMenu = function(type) {
 				button5.setVisibility(Interface.Visibility.GONE);
 				button32.setVisibility(Interface.Visibility.GONE);
 			}
-
 			let count = getProjects().items.length;
-
 			if ((pos1[3] && pos2[3]) || setsovle[1] || count > 0) {
 				text4.setVisibility(Interface.Visibility.VISIBLE);
 			} else {
 				text4.setVisibility(Interface.Visibility.GONE);
 			}
-
 			if (count > 0) {
 				button19.setVisibility(Interface.Visibility.VISIBLE);
 			} else {
 				button19.setVisibility(Interface.Visibility.GONE);
 			}
-
 			if (setsovle[1]) {
 				button6.setVisibility(Interface.Visibility.VISIBLE);
 				button18.setVisibility(Interface.Visibility.VISIBLE);
@@ -502,7 +471,6 @@ const updateMenu = function(type) {
 				button6.setVisibility(Interface.Visibility.GONE);
 				button18.setVisibility(Interface.Visibility.GONE);
 			}
-
 			if (rule) {
 				button1.setVisibility(Interface.Visibility.GONE);
 				text8.setVisibility(Interface.Visibility.VISIBLE);
@@ -514,7 +482,6 @@ const updateMenu = function(type) {
 				button9.setVisibility(Interface.Visibility.VISIBLE);
 				button10.setVisibility(Interface.Visibility.GONE);
 			}
-
 			if (coordsButtonShow) {
 				button13.setVisibility(Interface.Visibility.VISIBLE);
 			} else {
@@ -534,13 +501,5 @@ const removeMenu = function() {
 	if (this.CurrentMenuWindow) {
 		CurrentMenuWindow.dismiss();
 		CurrentMenuWindow = null;
-	}
-};
-
-const removeSetting = function() {
-	if (this.CurrentSettingWindow) {
-		Game.tipMessage(" ");
-		CurrentSettingWindow.dismiss();
-		CurrentSettingWindow = null;
 	}
 };
