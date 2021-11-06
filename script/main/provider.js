@@ -4,7 +4,8 @@ const createButton = function() {
 	CurrentButtonLayout.setAlpha(alpha);
 
 	button0 = getStyledButton("menu");
-	button0.setText(translate("Menu").toUpperCase());
+	button0.setText(translate("Menu"));
+	button0.setAllCaps(true);
 	button0.setTextSize(20);
 	button0.setOnClickListener(function(viewarg) {
 		createMenu(0);
@@ -60,7 +61,8 @@ const createStop = function() {
 	CurrentStopLayout.setAlpha(alpha);
 
 	button24 = getStyledButton("menu");
-	button24.setText(translate("Interrupt").toUpperCase());
+	button24.setText(translate("Interrupt"));
+	button24.setAllCaps(true);
 	button24.setTextSize(20);
 	button24.setOnClickListener(function(viewarg) {
 		sovleGoFunctions = false;
@@ -111,7 +113,7 @@ const updateButton = function() {
 
 const showDialog = function() {
 	let dialog = new android.app.AlertDialog.Builder(getContext(), android.R.style.Theme_DeviceDefault_DialogWhenLarge);
-	dialog.setTitle(translate("setting"));
+	dialog.setTitle(translate("About"));
 	dialog.setMessage(android.text.Html.fromHtml(translate("Modification allows you to fully manage world, " +
 		"build, fill, replace, copy blocks and much more. Construction " +
 		"takes place in background, you can create your masterpieces right during process. " +
@@ -122,13 +124,16 @@ const showDialog = function() {
 		"<br/><br/>Important links:" +
 		"<br/><a href=\"vk.com/club148880110\">Group</a> - news, help and documentation")));
 	dialog.setPositiveButton(translate("Leave"), null);
-	dialog.create().show();
+	let movement = dialog.create();
+	movement.findViewById(android.R.id.message).setMovementMethod
+		(android.text.method.LinkMovementMethod.getInstance());
+	movement.show();
 };
 
 const saveDialog = function(type) {
-	let file = getNextProject();
 	let dialog = new android.app.AlertDialog.Builder(getContext(), android.R.style.Theme_DeviceDefault_DialogWhenLarge);
 	dialog.setTitle(translate("Exporting"));
+	let file = getNextProject();
 	dialog.setMessage(translate("File will be saved as %s, continue?", Files.getNameWithoutExtension(file.getName())));
 	dialog.setPositiveButton(translate("OK"), function() {
 		try {
@@ -136,6 +141,7 @@ const saveDialog = function(type) {
 			if (menuCanUpdate) updateMenu(type);
 			showHint(translate("Exported"));
 		} catch (e) {
+			reportError(e);
 			showHint(translate("Temporarily unavailable"));
 		}
 	});
@@ -144,9 +150,9 @@ const saveDialog = function(type) {
 };
 
 const loadDialog = function(type) {
-	let list = getProjects();
 	let dialog = new android.app.AlertDialog.Builder(getContext(), android.R.style.Theme_DeviceDefault_DialogWhenLarge);
 	dialog.setTitle(translate("Importing"));
+	let list = getProjects();
 	dialog.setItems(list.items, function(d, i) {
 		try {
 			loadFromProject(list.files[i]);
@@ -154,6 +160,7 @@ const loadDialog = function(type) {
 			if (menuCanUpdate) updateMenu(type);
 			showHint(translate("Imported"));
 		} catch (e) {
+			reportError(e);
 			showHint(translate("Temporarily unavailable"));
 		}
 	});

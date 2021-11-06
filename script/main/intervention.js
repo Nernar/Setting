@@ -120,16 +120,6 @@ Callback.addCallback("tick", function() {
 		}
 	}
 	if (rover) {
-		if (updateGran) {
-			handle(function() {
-				updateSpeed();
-			});
-			if (activeM > 1) activeM--;
-			if (activeM == 1 && gran > 1) gran--;
-			if (activeP > 1) activeP--;
-			if (activeP == 1 && gran < 500) gran++;
-		}
-
 		if (pos1[3] == true && pos2[3] == false) {
 			pos2 = [getX(), getY(), getZ(), false];
 			particle();
@@ -155,7 +145,9 @@ Callback.addCallback("tick", function() {
 		}
 
 		if (functionNumber != 0) {
-			functions();
+			if (sovleGoFunctions) {
+				functions();
+			}
 			handle(function() {
 				updateStop();
 			});

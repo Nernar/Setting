@@ -1,108 +1,144 @@
-let replace = rule = updateGran = false,
+let replace = rule = false,
 	koll_total = koll_current = 0,
 	setsovle = [false, false],
 	sovleGoFunctions = true,
 	pos1, pos2, blocks = new Array(),
-	activeM = activeP = 0,
 	functionNumber = 0,
 	ab = bc = cd = 0,
 	leaved = rover = true,
 	lastCode = "";
 
 const functions = function() {
-	if (sovleGoFunctions) {
-		for (let a = 0; a < gran; a++) {
-			xa = xxa + x1;
-			ya = yya + y1;
-			za = zza + z1;
-			koll_current++;
+	let step = 0;
+	do {
+		step++;
+		xa = xxa + x1;
+		ya = yya + y1;
+		za = zza + z1;
+		koll_current++;
 
-			if (functionNumber == 1) {
+		if (functionNumber == 1) {
+			World.setBlock(xa, ya, za, idLocal, dataLocal);
+			if (koll_current >= koll_total) {
+				acquire(function() {
+					stop();
+					showHint(translate("%s blocks filled", koll_current));
+				});
+			}
+		}
+
+		if (functionNumber == 2) {
+			let current = koll_current - 1;
+			blocks[current * 2] = World.getBlockID(xa, ya, za);
+			blocks[current * 2 + 1] = World.getBlockData(xa, ya, za);
+
+			if (koll_current >= koll_total) {
+				acquire(function() {
+					stop();
+					showHint(translate("%s blocks copied", koll_total));
+					setsovle = [true, true];
+				});
+			}
+		}
+
+		if (functionNumber == 3) {
+			let current = koll_current - 1,
+				pasteId = blocks[current * 2],
+				pasteData = blocks[current * 2 + 1];
+
+			if (pasteData) World.setBlock(xa, ya, za, pasteId || 0, pasteData);
+			else if (pasteId) World.setBlock(xa, ya, za, pasteId);
+			else if (parseAir) World.setBlock(xa, ya, za, 0);
+
+			if (koll_current >= koll_total) {
+				acquire(function() {
+					stop()
+					showHint(translate("%s blocks inserted", koll_total));
+					setsovle[1] = false;
+				});
+			}
+		}
+
+		if (functionNumber == 4) {
+			if (World.getBlockID(xa, ya, za) == 0) {
 				World.setBlock(xa, ya, za, idLocal, dataLocal);
-				if (koll_current >= koll_total) {
-					acquire(function() {
-						stop();
-						showHint(translate("%s blocks filled", koll_current));
-					});
-				}
+				koll_set++;
 			}
 
-			if (functionNumber == 2) {
-				let current = koll_current - 1;
-				blocks[current * 2] = World.getBlockID(xa, ya, za);
-				blocks[current * 2 + 1] = World.getBlockData(xa, ya, za);
+			if (koll_current >= koll_total) {
+				acquire(function() {
+					stop();
+					showHint(translate("%s blocks scanned, of which filled: %s", [koll_total, koll_set]));
+				});
+			}
+		}
 
-				if (koll_current >= koll_total) {
-					acquire(function() {
-						stop();
-						showHint(translate("%s blocks copied", koll_total));
-						setsovle = [true, true];
-					});
-				}
+		if (functionNumber == 5) {
+			if (World.getBlockID(xa, ya, za) == id && World.getBlockData(xa, ya, za) == data) {
+				World.setBlock(xa, ya, za, idLocal, dataLocal);
+				koll_set++;
 			}
 
-			if (functionNumber == 3) {
-				let current = koll_current - 1,
-					pasteId = blocks[current * 2],
-					pasteData = blocks[current * 2 + 1];
+			if (koll_current >= koll_total) {
+				acquire(function() {
+					stop();
+					showHint(translate("%s blocks scanned, of which replaced: %s", [koll_total, koll_set]));
+				});
+			}
+		}
 
-				if (pasteData) World.setBlock(xa, ya, za, pasteId || 0, pasteData);
-				else if (pasteId) World.setBlock(xa, ya, za, pasteId);
-				else if (parseAir) World.setBlock(xa, ya, za, 0);
+		if (functionNumber == 6) {
+			let current = koll_current - 1;
+			blocks[current * 2] = World.getBlockID(xa, ya, za);
+			blocks[current * 2 + 1] = World.getBlockData(xa, ya, za);
 
-				if (koll_current >= koll_total) {
-					acquire(function() {
-						stop()
-						showHint(translate("%s blocks inserted", koll_total));
-						setsovle[1] = false;
-					});
+			World.setBlock(xa, ya, za, 0);
+			if (koll_current >= koll_total) {
+				acquire(function() {
+					stop();
+					showHint(translate("%s blocks cut out", koll_total));
+					setsovle = [true, true];
+				});
+			}
+		}
+
+		if (build == 0) {
+			if (zza < zkol) {
+				zza++;
+			} else {
+				zza = 0;
+				if (yya < ykol) {
+					yya++;
+				} else {
+					yya = 0;
+					if (xxa < xkol) {
+						xxa++;
+					} else {
+						xxa = 0;
+					}
 				}
 			}
-
-			if (functionNumber == 4) {
-				if (World.getBlockID(xa, ya, za) == 0) {
-					World.setBlock(xa, ya, za, idLocal, dataLocal);
-					koll_set++;
-				}
-
-				if (koll_current >= koll_total) {
-					acquire(function() {
-						stop();
-						showHint(translate("%s blocks scanned, of which filled: %s", [koll_total, koll_set]));
-					});
-				}
-			}
-
-			if (functionNumber == 5) {
-				if (World.getBlockID(xa, ya, za) == id && World.getBlockData(xa, ya, za) == data) {
-					World.setBlock(xa, ya, za, idLocal, dataLocal);
-					koll_set++;
-				}
-
-				if (koll_current >= koll_total) {
-					acquire(function() {
-						stop();
-						showHint(translate("%s blocks scanned, of which replaced: %s", [koll_total, koll_set]));
-					});
+		} else if (build == 1) {
+			if (xxa < xkol) {
+				xxa++;
+			} else {
+				xxa = 0;
+				if (yya < ykol) {
+					yya++;
+				} else {
+					yya = 0;
+					if (zza < zkol) {
+						zza++;
+					} else {
+						zza = 0;
+					}
 				}
 			}
-
-			if (functionNumber == 6) {
-				let current = koll_current - 1;
-				blocks[current * 2] = World.getBlockID(xa, ya, za);
-				blocks[current * 2 + 1] = World.getBlockData(xa, ya, za);
-
-				World.setBlock(xa, ya, za, 0);
-				if (koll_current >= koll_total) {
-					acquire(function() {
-						stop();
-						showHint(translate("%s blocks cut out", koll_total));
-						setsovle = [true, true];
-					});
-				}
-			}
-
-			if (build == 0) {
+		} else if (build == 2) {
+			if (xxa < xkol) {
+				xxa++;
+			} else {
+				xxa = 0;
 				if (zza < zkol) {
 					zza++;
 				} else {
@@ -111,48 +147,11 @@ const functions = function() {
 						yya++;
 					} else {
 						yya = 0;
-						if (xxa < xkol) {
-							xxa++;
-						} else {
-							xxa = 0;
-						}
-					}
-				}
-			} else if (build == 1) {
-				if (xxa < xkol) {
-					xxa++;
-				} else {
-					xxa = 0;
-					if (yya < ykol) {
-						yya++;
-					} else {
-						yya = 0;
-						if (zza < zkol) {
-							zza++;
-						} else {
-							zza = 0;
-						}
-					}
-				}
-			} else if (build == 2) {
-				if (xxa < xkol) {
-					xxa++;
-				} else {
-					xxa = 0;
-					if (zza < zkol) {
-						zza++;
-					} else {
-						zza = 0;
-						if (yya < ykol) {
-							yya++;
-						} else {
-							yya = 0;
-						}
 					}
 				}
 			}
 		}
-	}
+	} while (step < gran);
 };
 
 const particle = function() {

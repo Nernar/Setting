@@ -16,21 +16,38 @@ const getStyledLayout = function(style) {
 	return view;
 };
 
+const getCompoundStateListDrawable = function() {
+	let compound = new android.graphics.drawable.StateListDrawable();
+	compound.addState([android.R.attr.state_pressed],
+		new android.graphics.drawable.ColorDrawable
+			(Interface.Color.parse("#44444444")));
+	compound.addState([android.R.attr.state_focused],
+		new android.graphics.drawable.ColorDrawable
+			(Interface.Color.parse("#44484848")));
+	compound.addState([android.R.attr.state_checked],
+		new android.graphics.drawable.ColorDrawable
+			(Interface.Color.parse("#4444AA44")));
+	return compound;
+};
+
 const getStyledButton = function(style) {
 	let view = new android.widget.Button(getContext());
 	view.setTextColor(Interface.Color.WHITE);
+	let compound = getCompoundStateListDrawable();
 	view.setTypeface(typeface);
 	switch (style) {
 		case "menu":
-			view.setBackgroundColor(Interface.Color.parse("#AA444444"));
+			compound.addState([], new android.graphics.drawable.ColorDrawable
+				(Interface.Color.parse("#AA444444")));
 			view.setPadding(30, 0, 30, 0);
 			view.setTextSize(12);
 			break;
 		case "transparent":
-			view.setBackgroundDrawable(null);
 			view.setPadding(30, 0, 30, 0);
+			view.setAllCaps(false);
 			break;
 	}
+	view.setBackgroundDrawable(compound);
 	return view;
 };
 
@@ -64,7 +81,12 @@ const getStyledText = function(style) {
 
 const getStyledRadio = function(style) {
 	let view = new android.widget.RadioButton(getContext());
+	view.setLayoutParams(new android.widget.RelativeLayout.LayoutParams
+		(Interface.Display.MATCH, Interface.Display.WRAP));
+	view.setBackgroundDrawable(getCompoundStateListDrawable());
+	view.setButtonDrawable(null);
 	view.setTextColor(Interface.Color.WHITE);
+	view.setPadding(20, 0, 20, 0);
 	view.setTypeface(typeface);
 	switch (style) {
 		case "setting":
@@ -76,11 +98,36 @@ const getStyledRadio = function(style) {
 
 const getStyledCheck = function(style) {
 	let view = new android.widget.CheckBox(getContext());
+	view.setLayoutParams(new android.widget.RelativeLayout.LayoutParams
+		(Interface.Display.MATCH, Interface.Display.WRAP));
+	view.setBackgroundDrawable(getCompoundStateListDrawable());
+	view.setButtonDrawable(null);
 	view.setTextColor(Interface.Color.WHITE);
+	view.setPadding(20, 0, 20, 0);
 	view.setTypeface(typeface);
 	switch (style) {
 		case "setting":
 			view.setTextSize(10);
+			break;
+	}
+	return view;
+};
+
+const setCompoundProgressDrawable = function(prototype) {
+	let drawable = new android.graphics.drawable.ColorDrawable
+		(Interface.Color.parse("#FF44AA44"));
+	prototype.setDrawableByLayerId(android.R.id.progress, new android.graphics.drawable.ClipDrawable
+		(drawable, Interface.Gravity.LEFT, android.graphics.drawable.ClipDrawable.HORIZONTAL));
+};
+
+const getStyledSeek = function(style) {
+	let view = new android.widget.SeekBar(getContext());
+	view.setLayoutParams(new android.widget.RelativeLayout.LayoutParams
+		(Interface.Display.MATCH, Interface.Display.WRAP));
+	setCompoundProgressDrawable(view.getProgressDrawable());
+	switch (style) {
+		case "transparent":
+			view.setThumb(null);
 			break;
 	}
 	return view;

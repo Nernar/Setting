@@ -24,7 +24,6 @@ const createMenu = function(type) {
 			removeMenu();
 			createButton();
 		} else {
-			updateGran = false;
 			removeMenu();
 			createMenu(0);
 		}
@@ -107,7 +106,9 @@ const createMenu = function(type) {
 					start();
 					functionNumber = 5;
 					koll_set = 0;
-				} else showHint(translate("Select block to replace"));
+				} else {
+					showHint(translate("Select block to replace"));
+				}
 			});
 			layout.addView(button8);
 
@@ -276,7 +277,6 @@ const createMenu = function(type) {
 		button20.setOnClickListener(function(viewarg) {
 			if (goned0) layout0.setVisibility(Interface.Visibility.VISIBLE);
 			else layout0.setVisibility(Interface.Visibility.GONE);
-			updateGran = !updateGran;
 			goned0 = !goned0;
 		});
 		layout.addView(button20);
@@ -287,54 +287,31 @@ const createMenu = function(type) {
 		layout0.setGravity(Interface.Gravity.CENTER);
 		layout.addView(layout0);
 
+		let updateConstructionSpeed = function() {
+			if (gran == 0) {
+				text14.setText(translate("Step by step"));
+			} else {
+				text14.setText(translate("%s blocks/sec.", gran * 20));
+			}
+		};
+
+		seek1 = getStyledSeek("transparent");
+		seek1.setMax(25);
+		seek1.setProgress(gran);
+		seek1.setOnSeekBarChangeListener({
+			onProgressChanged: function() {
+				gran = seek1.getProgress();
+				updateConstructionSpeed();
+			}
+		});
+		layout0.addView(seek1);
+
 		text14 = getStyledText();
 		text14.setGravity(Interface.Gravity.CENTER);
 		text14.setPadding(0, 25, 0, 0);
+		updateConstructionSpeed();
 		text14.setTextSize(10);
 		layout0.addView(text14);
-
-		layout3 = getStyledLayout();
-		layout0.addView(layout3);
-
-		button25 = getStyledButton("transparent");
-		button25.setText(translate("-"));
-		button25.setTextSize(15);
-		button25.setOnTouchListener({
-			onTouch: function(view, event) {
-				if (event.getAction() == 0) {
-					if (gran > 1) {
-						activeM = 20;
-						gran--;
-					}
-				}
-
-				if (event.getAction() == 1) {
-					activeM = 0;
-				}
-				return true;
-			}
-		});
-		layout3.addView(button25);
-
-		button27 = getStyledButton("transparent");
-		button27.setText(translate("+"));
-		button27.setTextSize(15);
-		button27.setOnTouchListener({
-			onTouch: function(view, event) {
-				if (event.getAction() == 0) {
-					if (gran < 500) {
-						activeP = 20;
-						gran++;
-					}
-				}
-
-				if (event.getAction() == 1) {
-					activeP = 0;
-				}
-				return true;
-			}
-		});
-		layout3.addView(button27);
 
 		goned1 = true;
 		button21 = getStyledButton("menu");
@@ -352,7 +329,7 @@ const createMenu = function(type) {
 		layout4.setGravity(Interface.Gravity.CENTER);
 		layout.addView(layout4);
 
-		seek0 = new android.widget.SeekBar(getContext());
+		seek0 = getStyledSeek("transparent");
 		seek0.setMax(9);
 		seek0.setProgress(alpha * 10 - 1);
 		seek0.setOnSeekBarChangeListener({
@@ -381,7 +358,7 @@ const createMenu = function(type) {
 
 		group0 = new android.widget.RadioGroup(getContext());
 		group0.setOrientation(Interface.Orientate.VERTICAL);
-		layout5.addView(group0);Length > Height > Width
+		layout5.addView(group0);
 
 		radio0 = getStyledRadio("setting");
 		radio0.setText(translate("%s > %s", [translate("Length"), translate("Height")]));
@@ -553,10 +530,6 @@ const updateMenu = function(type) {
 	}
 };
 
-const updateSpeed = function() {
-	text14.setText(translate("%s blocks/sec.", gran * 20));
-};
-
 const removeMenu = function() {
 	if (this.CurrentMenuWindow) {
 		CurrentMenuWindow.dismiss();
@@ -566,7 +539,6 @@ const removeMenu = function() {
 
 const removeSetting = function() {
 	if (this.CurrentSettingWindow) {
-		updateGran = false;
 		Game.tipMessage(" ");
 		CurrentSettingWindow.dismiss();
 		CurrentSettingWindow = null;

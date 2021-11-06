@@ -209,3 +209,6 @@ Translation.addTranslation("development version", {
 Translation.addTranslation("%s blocks/sec.", {
 	ru: "%s блоков/сек."
 });
+Translation.addTranslation("Step by step", {
+	ru: "Пошагово"
+});
