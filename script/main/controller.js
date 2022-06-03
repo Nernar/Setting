@@ -154,7 +154,7 @@ const createMenu = function(type) {
 			button5.setOnClickListener(function(viewarg) {
 				start();
 				functionNumber = 2;
-				blocks = new Array();
+				blocks = [];
 			});
 			layout.addView(button5);
 
@@ -163,7 +163,7 @@ const createMenu = function(type) {
 			button32.setOnClickListener(function(viewarg) {
 				start();
 				functionNumber = 6;
-				blocks = new Array();
+				blocks = [];
 			});
 			layout.addView(button32);
 

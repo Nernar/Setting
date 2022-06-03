@@ -15,7 +15,7 @@ tryout(function() {
 	}
 });
 
-const Files = new Object();
+const Files = {};
 
 Files.createFile = function(path, name) {
 	if (name == undefined) let file = new java.io.File(path);
@@ -31,7 +31,7 @@ Files.createNewWithParent = function(path, name) {
 };
 
 Files.checkFormats = function(list, formats) {
-	let formatted = new Array();
+	let formatted = [];
 	if (!Array.isArray(formats)) {
 		formats = [formats];
 	}
@@ -67,10 +67,10 @@ Files.getExtension = function(file) {
 };
 
 Files.listFiles = function(path, explore) {
-	let files = new Array(),
+	let files = [],
 		file = new java.io.File(path);
 	if (file.isFile()) return [file];
-	let list = file.listFiles() || new Array();
+	let list = file.listFiles() || [];
 	for (let i = 0; i < list.length; i++) {
 		if (list[i].isFile()) {
 			files.push(list[i]);
@@ -82,10 +82,10 @@ Files.listFiles = function(path, explore) {
 };
 
 Files.listDirectories = function(path, explore) {
-	let directories = new Array(),
+	let directories = [],
 		file = new java.io.File(path);
 	if (file.isFile()) return directories;
-	let list = file.listFiles() || new Array();
+	let list = file.listFiles() || [];
 	for (let i = 0; i < list.length; i++) {
 		if (list[i].isDirectory()) {
 			directories.push(list[i]);
@@ -96,14 +96,14 @@ Files.listDirectories = function(path, explore) {
 };
 
 Files.listFileNames = function(path, explore, root) {
-	let files = new Array(),
+	let files = [],
 		file = new java.io.File(path);
 	if (root === undefined) root = path;
 	if (file.isFile()) return [String(path).replace(root, String())];
 	if (!String(root).endsWith("/") && String(root).length > 0) {
 		root += "/";
 	}
-	let list = file.listFiles() || new Array();
+	let list = file.listFiles() || [];
 	for (let i = 0; i < list.length; i++) {
 		if (list[i].isFile()) {
 			files.push(String(list[i]).replace(root, String()));
@@ -115,10 +115,10 @@ Files.listFileNames = function(path, explore, root) {
 };
 
 Files.listDirectoryNames = function(path, explore, root) {
-	let directories = new Array(),
+	let directories = [],
 		file = new java.io.File(path);
 	if (file.isFile()) return directories;
-	let list = file.listFiles() || new Array();
+	let list = file.listFiles() || [];
 	if (root === undefined) root = path;
 	if (!String(root).endsWith("/") && String(root).length > 0) {
 		root += "/";
@@ -152,7 +152,7 @@ Files.deleteRecursive = function(path, explore) {
 Files.readKey = function(file, separator) {
 	separator = separator || "=";
 	let text = this.read(file, true),
-		obj = new Object();
+		obj = {};
 	for (let i = 0; i < text.length; i++) {
 		let source = text[i].split(separator);
 		if (source.length == 2) obj[source[0]] = source[1];
@@ -162,7 +162,7 @@ Files.readKey = function(file, separator) {
 
 Files.writeKey = function(file, obj, separator) {
 	separator = separator || "=";
-	let result = new Array();
+	let result = [];
 	for (let item in obj) {
 		result.push(item + separator + obj[item]);
 	}
@@ -170,9 +170,9 @@ Files.writeKey = function(file, obj, separator) {
 };
 
 Files.read = function(file, massive) {
-	if (!file.exists()) return massive ? new Array() : null;
+	if (!file.exists()) return massive ? [] : null;
 	let reader = java.io.BufferedReader(new java.io.FileReader(file)),
-		result = new Array(),
+		result = [],
 		line;
 	while (line = reader.readLine()) {
 		result.push(line);
@@ -194,7 +194,7 @@ Files.readLine = function(file, index) {
 Files.readLines = function(file, startInd, endInd) {
 	if (!file.exists()) return null;
 	let reader = java.io.BufferedReader(new java.io.FileReader(file)),
-		result = new Array(),
+		result = [],
 		count = -1,
 		line;
 	while (count <= endInd && (line = reader.readLine())) {
@@ -302,7 +302,7 @@ Files.compare = function(left, right, simpleCompare) {
 Files.compareRecursive = function(input, target, explore, simpleCompare, includeDirectories) {
 	let left = this.listFileNames(input, explore),
 		right = this.listFileNames(target, explore),
-		changes = new Array();
+		changes = [];
 	if (includeDirectories !== false) {
 		let first = this.listDirectoryNames(input, explore),
 			second = this.listDirectoryNames(target, explore);

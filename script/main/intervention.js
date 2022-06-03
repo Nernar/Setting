@@ -27,8 +27,8 @@ const saveAsProject = function(file) {
 const getProjects = function() {
 	let file = new java.io.File(Dirs.EXPORT),
 		list = file.listFiles(),
-		files = new Array(),
-		projects = new Array();
+		files = [],
+		projects = [];
 	for (let i = 0; i < list.length; i++) {
 		let name = list[i].getName();
 		if (name.endsWith(".setp")) {

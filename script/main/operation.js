@@ -2,7 +2,7 @@ let replace = rule = false,
 	koll_total = koll_current = 0,
 	setsovle = [false, false],
 	sovleGoFunctions = true,
-	pos1, pos2, blocks = new Array(),
+	pos1, pos2, blocks = [],
 	functionNumber = 0,
 	ab = bc = cd = 0,
 	leaved = rover = true;
