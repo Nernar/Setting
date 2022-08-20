@@ -1,7 +1,7 @@
 /*
 
    Copyright 2015 Dmitry Medvedev (vk.com/id305567723)
-   Copyright 2018-2021 Nernar (github.com/nernar)
+   Copyright 2018-2022 Nernar (github.com/nernar)
    
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
