@@ -139,7 +139,7 @@ const setExtraBlockUniversal = function(x, y, z, block) {
 		return;
 	}
 	let cover = getBlockUniversal(x, y, z);
-	if (cover.id == 0 || (coverOpaqueBlocks && canTileBeReplaced(cover.id, cover.data))) {
+	if (cover.id == 0 || (coverTransparentBlocks && canTileBeReplaced(cover.id, cover.data))) {
 		World.setBlock(x, y, z, id, block.data);
 	}
 };
@@ -168,7 +168,7 @@ const setExtraBlockIdDataUniversal = function(x, y, z, id, data) {
 		return;
 	}
 	let cover = getBlockUniversal(x, y, z);
-	if (cover.id == 0 || (coverOpaqueBlocks && canTileBeReplaced(cover.id, cover.data))) {
+	if (cover.id == 0 || (coverTransparentBlocks && canTileBeReplaced(cover.id, cover.data))) {
 		World.setBlock(x, y, z, toId, data || 0);
 	}
 };

@@ -159,7 +159,7 @@ const functions = function() {
 
 		if (functionNumber == 4) {
 			let block = getBlockUniversal(xa, ya, za);
-			if (!(block.id == idLocal && block.data == dataLocal) && (block.id == 0 || (coverOpaqueBlocks && canTileBeReplaced(block.id, block.data)))) {
+			if (!(block.id == idLocal && block.data == dataLocal) && (block.id == 0 || (coverTransparentBlocks && canTileBeReplaced(block.id, block.data)))) {
 				setBlockIdDataUniversal(xa, ya, za, idLocal, dataLocal);
 				koll_set++;
 			}
@@ -175,9 +175,9 @@ const functions = function() {
 		if (functionNumber == 7) {
 			if (yya == 0 || covered.indexOf(xxa | (yya - 1 << 12) | (zza << 20)) == -1) {
 				let cover = getBlockUniversal(xa, ya, za);
-				if (!(cover.id == idLocal && cover.data == dataLocal) && (cover.id == 0 || (coverOpaqueBlocks && canTileBeReplaced(cover.id, cover.data)))) {
+				if (!(cover.id == idLocal && cover.data == dataLocal) && (cover.id == 0 || (coverTransparentBlocks && canTileBeReplaced(cover.id, cover.data)))) {
 					let block = getBlockUniversal(xa, ya - 1, za);
-					if (block.id != 0 && !(coverOpaqueBlocks && canTileBeReplaced(block.id, block.data))) {
+					if (block.id != 0 && !(coverTransparentBlocks && canTileBeReplaced(block.id, block.data))) {
 						setBlockIdDataUniversal(xa, ya, za, idLocal, dataLocal);
 						koll_set++;
 					}

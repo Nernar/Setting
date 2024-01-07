@@ -2,7 +2,7 @@ let windowTransparent = 1,
 	windowLength = 0.36,
 	windowDynamic = true,
 	hintsViaOverlay = false,
-	coverOpaqueBlocks = true,
+	coverTransparentBlocks = true,
 	beautifyJson = false,
 	placeAirBeforePaste = false,
 	typeface = android.graphics.Typeface.MONOSPACE;
@@ -250,7 +250,7 @@ const updateSettings = function() {
 		window_dynamic: true,
 		hints_via_overlay: false,
 		operation_direction: 0,
-		cover_opaque_blocks: true,
+		cover_transparent_blocks: true,
 		beautify_json: false,
 		place_air_before_paste: false
 	});
@@ -260,7 +260,7 @@ const updateSettings = function() {
 	windowDynamic = __config__.getBool("window_dynamic");
 	hintsViaOverlay = __config__.getBool("hints_via_overlay");
 	operationDirection = __config__.getInteger("operation_direction");
-	coverOpaqueBlocks = __config__.getBool("cover_opaque_blocks");
+	coverTransparentBlocks = __config__.getBool("cover_transparent_blocks");
 	beautifyJson = __config__.getBool("beautify_json");
 	placeAirBeforePaste = __config__.getBool("place_air_before_paste");
 };

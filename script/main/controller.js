@@ -445,11 +445,11 @@ const createMenu = function(type) {
 		layout.addView(layout6);
 
 		check2 = getStyledCheck("setting");
-		check2.setText(translate("Cover opaque blocks"));
-		check2.setChecked(coverOpaqueBlocks);
+		check2.setText(translate("Cover transparent blocks"));
+		check2.setChecked(coverTransparentBlocks);
 		check2.setOnCheckedChangeListener(function(group, bool) {
-			coverOpaqueBlocks = bool;
-			__config__.set("cover_opaque_blocks", coverOpaqueBlocks);
+			coverTransparentBlocks = bool;
+			__config__.set("cover_transparent_blocks", coverTransparentBlocks);
 			__config__.save();
 		});
 		layout6.addView(check2);
