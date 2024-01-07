@@ -35,7 +35,7 @@
 		"operation_direction": {
 			"displayIf": false
 		},
-		"cover_opaque_blocks": {
+		"cover_transparent_blocks": {
 			"displayIf": false
 		},
 		"beautify_json": {
