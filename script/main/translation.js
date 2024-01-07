@@ -1,5 +1,5 @@
-Translation.addTranslation("Menu", {
-	ru: "Меню"
+Translation.addTranslation("Setting", {
+	ru: "Setting"
 });
 Translation.addTranslation("Modification allows you to fully manage world, " +
 		"build, fill, replace, copy blocks and much more. Construction " +
@@ -35,11 +35,17 @@ Translation.addTranslation("Exported", {
 Translation.addTranslation("Temporarily unavailable", {
 	ru: "Временно не доступно"
 });
+Translation.addTranslation("Format is not supported or outdated", {
+	ru: "Формат не поддерживается или устарел"
+});
 Translation.addTranslation("Importing", {
 	ru: "Загрузка"
 });
 Translation.addTranslation("Imported", {
 	ru: "Загружено"
+});
+Translation.addTranslation("Awaiting", {
+	ru: "Ожидание"
 });
 
 Translation.addTranslation("%s blocks filled", {
@@ -54,14 +60,23 @@ Translation.addTranslation("%s blocks inserted", {
 Translation.addTranslation("%s blocks scanned, of which filled: %s", {
 	ru: "Сканировано %s блоков, из них залито: %s"
 });
+Translation.addTranslation("Select block to replace", {
+	ru: "Выберите блок для замены"
+});
+Translation.addTranslation("Replacement block is selected", {
+	ru: "Блок для замены выбран"
+});
 Translation.addTranslation("%s blocks scanned, of which replaced: %s", {
 	ru: "Сканировано %s блоков, из них заменено: %s"
 });
 Translation.addTranslation("%s blocks cut out", {
 	ru: "Вырезано %s блоков"
 });
-Translation.addTranslation("Replacement block is selected", {
-	ru: "Блок для замены выбран"
+Translation.addTranslation("%s blocks scanned, of which covered: %s", {
+	ru: "Сканировано %s блоков, из них покрыто: %s"
+});
+Translation.addTranslation("connected to server", {
+	ru: "подключено к серверу"
 });
 
 Translation.addTranslation("Location", {
@@ -76,6 +91,15 @@ Translation.addTranslation("First point is set", {
 Translation.addTranslation("Second point is set", {
 	ru: "Вторая точка установлена"
 });
+Translation.addTranslation("Measure", {
+	ru: "Замерить"
+});
+Translation.addTranslation("Measuring", {
+	ru: "Замерка"
+});
+Translation.addTranslation("Conclude", {
+	ru: "Закончить"
+});
 Translation.addTranslation("Operations", {
 	ru: "Действия"
 });
@@ -83,34 +107,19 @@ Translation.addTranslation("Fill", {
 	ru: "Заполнить"
 });
 Translation.addTranslation("Pour", {
-	ru: "Залить"
+	ru: "Совместить"
+});
+Translation.addTranslation("Cover", {
+	ru: "Наложить"
+});
+Translation.addTranslation("Scanning", {
+	ru: "Сканирование"
+});
+Translation.addTranslation("Block to replace", {
+	ru: "Блок для замены"
 });
 Translation.addTranslation("Replace", {
 	ru: "Заменить"
-});
-Translation.addTranslation("Toolbox", {
-	ru: "Инструменты"
-});
-Translation.addTranslation("Select block to replace", {
-	ru: "Выберите блок для замены"
-});
-Translation.addTranslation("Out of hand", {
-	ru: "Блок из руки"
-});
-Translation.addTranslation("Replacement block is selected", {
-	ru: "Блок для замены выбран"
-});
-Translation.addTranslation("Measure", {
-	ru: "Замерить"
-});
-Translation.addTranslation("Locate", {
-	ru: "Координаты"
-});
-Translation.addTranslation("Measuring", {
-	ru: "Замерка"
-});
-Translation.addTranslation("Conclude", {
-	ru: "Закончить"
 });
 Translation.addTranslation("Clipboard", {
 	ru: "Буфер"
@@ -142,18 +151,30 @@ Translation.addTranslation("Config", {
 Translation.addTranslation("Quit", {
 	ru: "Завершить"
 });
-
 Translation.addTranslation("Continue", {
 	ru: "Продолжить"
 });
+
 Translation.addTranslation("Operation", {
 	ru: "Операция"
 });
 Translation.addTranslation("Speed", {
 	ru: "Скорость"
 });
+Translation.addTranslation("%s blocks/sec.", {
+	ru: "%s блоков/сек."
+});
+Translation.addTranslation("Instantly", {
+	ru: "Мгновенно"
+});
 Translation.addTranslation("Transparency", {
 	ru: "Прозрачность"
+});
+Translation.addTranslation("Stretch", {
+	ru: "Растяжка"
+});
+Translation.addTranslation("Direction", {
+	ru: "Направление"
 });
 Translation.addTranslation("Width", {
 	ru: "Ширина"
@@ -164,36 +185,24 @@ Translation.addTranslation("Height", {
 Translation.addTranslation("Length", {
 	ru: "Долгота"
 });
-Translation.addTranslation("Crossing", {
-	ru: "Переход"
+Translation.addTranslation("Miscellaneous", {
+	ru: "Прочее"
 });
-Translation.addTranslation("Adjustment", {
-	ru: "Отладка"
-});
-Translation.addTranslation("Static interface", {
+Translation.addTranslation("Do not update menu", {
 	ru: "Не обновлять меню"
 });
-Translation.addTranslation("Locate operation", {
-	ru: "Кнопка координат"
+Translation.addTranslation("Overlay for messages", {
+	ru: "Оверлей для сообщений"
 });
-Translation.addTranslation("Insert air", {
-	ru: "Вставлять воздух"
+Translation.addTranslation("Cover transparent blocks", {
+	ru: "Покрывать прозрачные блоки"
 });
-Translation.addTranslation("Display location", {
-	ru: "Отображение локации"
+Translation.addTranslation("Clear paste zone", {
+	ru: "Очищать зону вставки"
 });
 Translation.addTranslation("Community", {
 	ru: "Сообщество"
 });
 Translation.addTranslation("About", {
 	ru: "Информация"
-});
-Translation.addTranslation("development version", {
-	ru: "отладочная версия"
-});
-Translation.addTranslation("%s blocks/sec.", {
-	ru: "%s блоков/сек."
-});
-Translation.addTranslation("Step by step", {
-	ru: "Пошагово"
 });
