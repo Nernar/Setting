@@ -15,6 +15,34 @@
                 "ru": "Меняет состояния запускаемости мода, если отключено - мод запущен не будет."
             },
             "index": 0
-        }
+        },
+
+		"blocks_per_tick": {
+			"displayIf": false
+		},
+		"window_transparent": {
+			"displayIf": false
+		},
+		"window_length": {
+			"displayIf": false
+		},
+		"window_dynamic": {
+			"displayIf": false
+		},
+		"hints_via_overlay": {
+			"displayIf": false
+		},
+		"operation_direction": {
+			"displayIf": false
+		},
+		"cover_opaque_blocks": {
+			"displayIf": false
+		},
+		"beautify_json": {
+			"displayIf": false
+		},
+		"place_air_before_paste": {
+			"displayIf": false
+		}
     }
 }

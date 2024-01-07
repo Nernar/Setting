@@ -1,3 +1,12 @@
 {
-  "enabled":true
+  "enabled":true,
+  "blocks_per_tick":20,
+  "window_transparent":1,
+  "window_dynamic":true,
+  "window_length":0.36,
+  "hints_via_overlay":false,
+  "operation_direction":0,
+  "cover_opaque_blocks":true,
+  "beautify_json":false,
+  "place_air_before_paste":false
 }
